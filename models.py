@@ -1,75 +1,88 @@
 """Shared data shapes. Owner: Storage/models. Do not change field names without telling the team."""
-from dataclasses import dataclass, field, asdict
-from typing import Optional
 
-
-@dataclass
 class Location:
-    name: str
-    lat: float
-    lon: float
+    def __init__(self, name: str, lat: float, lon: float):
+        self.name = name
+        self.lat = lat
+        self.lon = lon
 
 
-@dataclass
 class Crop:
-    name: str
-    min_temp: float          # deg C, below this the crop suffers
-    max_temp: float          # deg C, above this the crop suffers
-    water_mm_per_week: float
-    days_to_harvest: int
-    weeding_days: list = field(default_factory=list)   # days after planting
-    common_pests: list = field(default_factory=list)
+    def __init__(self, name: str, min_temp: float, max_temp: float, water_mm_per_week: float, days_to_harvest: int):
+        self.name = name
+        self.min_temp = min_temp #below this temperature, the crop will not grow well
+        self.max_temp = max_temp #above this temperature, the crop will not grow well
+        self.water_mm_per_week = water_mm_per_week
+        self.days_to_harvest = days_to_harvest
+        self.weeding_days = []
+        self.common_pests = []
 
 
-@dataclass
 class DailyForecast:
-    date: str                # "YYYY-MM-DD"
-    temp_max: float
-    temp_min: float
-    rain_mm: float
-    soil_moisture: Optional[float] = None   # m3/m3, modeled estimate
+    def __init__(self, date: str, temp_max: float, temp_min: float, rain_mm: float):
+        self.date = date #YYYY-MM-DD
+        self.temp_max = temp_max
+        self.temp_min = temp_min
+        self.rain_mm = rain_mm
+        self.soil_moisture = None   # m3/m3, modeled estimate
 
 
-@dataclass
+
 class Advice:
-    plant_now: bool
-    best_window: str         # e.g. "2026-11-10 to 2026-11-17"
-    irrigation: str
-    pest_risks: list = field(default_factory=list)
+    def __init__(self, plant_now: bool, best_window: str, irrigation: str, pest_risks: list = None, summary: str = "", source: str = "rules"):
+        self.plant_now = plant_now
+        self.best_window = best_window #2024-06-01 to 2024-06-07
+        self.irrigation = irrigation
+        self.pest_risks = pest_risks if pest_risks is not None else []
+        self.summary = summary
+        self.source = source
     summary: str = ""
     source: str = "rules"    # "gemini" or "rules" (fallback)
 
 
-@dataclass
+
 class Activity:
-    date: str
-    kind: str                # planting | weeding | fertilizing | irrigation | harvest | other
-    notes: str = ""
+    def __init__(self, date: str, kind: str, notes: str = ""):
+        self.date = date
+        self.kind = kind # planting | weeding | harvest | irrigation | pest_control
+        self.notes = notes
 
 
-@dataclass
 class CalendarEvent:
-    date: str
-    title: str
-    kind: str                # planting | weeding | harvest
+    def __init__(self, date: str, title: str, kind: str):
+        self.date = date
+        self.title = title
+        self.kind = kind # planting | weeding | harvest
 
 
-@dataclass
 class WeatherAlert:
-    date: str
-    level: str               # "warning" | "danger"
-    message: str
+    def __init__(self, date: str, level: str, message: str):
+        self.date = date
+        self.level = level # "warning" | "danger"
+        self.message = message
 
 
-@dataclass
 class FarmPlot:
-    plot_id: str
-    name: str
-    location: Location
-    crop_name: str
-    planting_date: Optional[str] = None
-    activities: list = field(default_factory=list)   # list[Activity]
-    calendar: list = field(default_factory=list)     # list[CalendarEvent]
+    def __init__(self, plot_id: str, name: str, location: Location, crop_name: str, planting_date: list[str] = None):
+        self.plot_id = plot_id
+        self.name = name
+        self.location = location
+        self.crop_name = crop_name
+        self.planting_date = planting_date
+        self.activities = []    #list of Activity objects
+        self.calendar = []  #list of CalendarEvent objects
 
     def to_dict(self):
-        return asdict(self)
+        return {
+            "plot_id": self.plot_id,
+            "name": self.name,
+            "location": {
+                "name": self.location.name,
+                "lat": self.location.lat,
+                "lon": self.location.lon
+            },
+            "crop_name": self.crop_name,
+            "planting_date": self.planting_date,
+            "activities": [vars(a) for a in self.activities],
+            "calendar": [vars(e) for e in self.calendar]
+        }

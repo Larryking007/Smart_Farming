@@ -1,5 +1,12 @@
 """Owner: AI/advisor. Placeholder uses simple rules. Add Gemini call, keep rules as fallback.
 
+Gemini API key (optional while developing):** set it as an environment variable. **Never commit it.**
+
+export GEMINI_API_KEY="your-key"       - Windows (PowerShell): $env:GEMINI_API_KEY="your-key"
+export GEMINI_MODEL="model-name"       - optional; check Google's current model names
+
+Without a key the app uses the rule-based advisor.
+
 Plan: compute_flags() -> numbers; build prompt from flags + crop; ask Gemini for JSON
 {plant_now, best_window, irrigation, pest_risks, summary}; validate; on any
 APIRequestError or bad JSON, return rule-based Advice (source="rules").

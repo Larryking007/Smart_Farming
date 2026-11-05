@@ -75,15 +75,6 @@ pip install requests
 
 Tkinter ships with Python on Windows and macOS. On Ubuntu/Debian: `sudo apt install python3-tk`.
 
-**Gemini API key (optional while developing):** set it as an environment variable. **Never commit it.**
-
-```bash
-export GEMINI_API_KEY="your-key"       # Windows (PowerShell): $env:GEMINI_API_KEY="your-key"
-export GEMINI_MODEL="model-name"       # optional; check Google's current model names
-```
-
-Without a key the app uses the rule-based advisor.
-
 **Run it:**
 
 ```bash
