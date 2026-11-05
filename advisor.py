@@ -1,11 +1,10 @@
-"""Owner: AI/advisor. Stub uses simple rules. Add Gemini call, keep rules as fallback.
+"""Owner: AI/advisor. Placeholder uses simple rules. Add Gemini call, keep rules as fallback.
 
 Plan: compute_flags() -> numbers; build prompt from flags + crop; ask Gemini for JSON
 {plant_now, best_window, irrigation, pest_risks, summary}; validate; on any
 APIRequestError or bad JSON, return rule-based Advice (source="rules").
 """
 from models import Advice
-
 
 class PlantingAdvisor:
     def __init__(self, gemini_api_key=None):
