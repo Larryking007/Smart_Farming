@@ -11,7 +11,7 @@ DEFAULT_CROPS = {
 
 
 def get_crop(name):
-    key = name.strip().lower()
-    if key not in DEFAULT_CROPS:
+    crop_choice = name.strip().lower()
+    if crop_choice not in DEFAULT_CROPS:
         raise UnsupportedCropError(f"Unsupported crop: {name!r}. Try: {', '.join(DEFAULT_CROPS)}")
-    return DEFAULT_CROPS[key]
+    return DEFAULT_CROPS[crop_choice]

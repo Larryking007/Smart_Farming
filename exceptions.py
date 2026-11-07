@@ -27,3 +27,12 @@ class APIRequestError(FarmAdvisorError):
 
 class StorageError(FarmAdvisorError):
     """Save/load problem (missing, corrupt, or unwritable file)."""
+
+class ValidationError(FarmAdvisorError):
+    """Data validation failed (e.g., invalid date format, out-of-range values)."""
+
+class APIRequestError(FarmAdvisorError):
+    """Network failure, timeout, or non-200 response (Open-Meteo or Gemini)."""
+
+class ForecastUnavailableError(FarmAdvisorError):
+    """Forecast data is missing or incomplete."""

@@ -16,7 +16,9 @@ class FarmLogStore:
             raise StorageError(f"Could not save: {e}")
 
     def load_raw(self):
-        """Returns list of plot dicts. TODO: rebuild FarmPlot objects."""
+        """Returns list of plot dicts."""
+    #TODO: rebuild FarmPlot objects
+
         try:
             with open(self.path, encoding="utf-8") as fh:
                 return json.load(fh)["plots"]

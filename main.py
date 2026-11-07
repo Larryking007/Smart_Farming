@@ -9,12 +9,12 @@ from validators import validate_date
 from exceptions import FarmAdvisorError
 
 
-def run(location_name="Akure", crop_name="maize", planting_date="2026-11-10"):
+def run(planting_date="2026-11-10"):
     try:
-        crop = get_crop(crop_name)
+        crop = get_crop(input(f"Enter crop name (e.g. maize, cassava, tomato, rice): "))
+        loc = input(f"Enter location name (e.g. city, village, region): ")
         client = WeatherClient()
-        loc = client.geocode(location_name)
-        forecast = client.get_forecast(loc.lat, loc.lon)
+        forecast = client.get_forecast()
         advice = PlantingAdvisor().advise(crop, forecast)
         alerts = detect_alerts(crop, forecast)
         plot = FarmPlot("p1", "North field", loc, crop.name, validate_date(planting_date))
@@ -28,4 +28,4 @@ def run(location_name="Akure", crop_name="maize", planting_date="2026-11-10"):
 
 
 if __name__ == "__main__":
-    run()
+    run("2026-11-10")
