@@ -27,3 +27,7 @@ class APIRequestError(FarmAdvisorError):
 
 class StorageError(FarmAdvisorError):
     """Save/load problem (missing, corrupt, or unwritable file)."""
+
+
+class AdviceFormatError(FarmAdvisorError):
+    """Gemini returned something that fails schema or sanity checks."""

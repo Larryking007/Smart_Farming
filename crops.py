@@ -1,6 +1,8 @@
-"""Crop lookup. Owner: Storage/models. Replace DEFAULT_CROPS with crops.json loading."""
+"""Crop lookup. Owner: Storage/models.."""
 from models import Crop
 from exceptions import UnsupportedCropError
+
+#TODO Replace DEFAULT_CROPS with crops.json loading
 
 DEFAULT_CROPS = {
     "maize":   Crop("maize", 15, 35, 25, 110, [14, 35], ["fall armyworm", "stem borer"]),
@@ -11,7 +13,7 @@ DEFAULT_CROPS = {
 
 
 def get_crop(name):
-    key = name.strip().lower()
-    if key not in DEFAULT_CROPS:
+    crop_choice = name.strip().lower()
+    if crop_choice not in DEFAULT_CROPS:
         raise UnsupportedCropError(f"Unsupported crop: {name!r}. Try: {', '.join(DEFAULT_CROPS)}")
-    return DEFAULT_CROPS[key]
+    return DEFAULT_CROPS[crop_choice]

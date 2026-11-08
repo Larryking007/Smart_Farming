@@ -39,20 +39,20 @@ Errors anywhere raise a custom exception from `exceptions.py`. The UI catches th
 
 ### Project structure
 
-| File                | Purpose                                                                             |
-| ------------------- | ----------------------------------------------------------------------------------- |
-| `app.py`            | Tkinter UI: 5 tabs and a status bar. No business logic here.                        |
-| `main.py`           | Console smoke test that wires every module together.                                |
-| `models.py`         | Shared data shapes (`Crop`, `FarmPlot`, `DailyForecast`, `Advice`...).              |
-| `crops.py`          | Supported crops and their profiles.                                                 |
-| `weather_client.py` | `WeatherClient`: geocoding and forecast (mock data until the real API is wired in). |
-| `advisor.py`        | `PlantingAdvisor`: Gemini advice with a rule-based fallback.                        |
-| `gemini_advisor.py` | Prompt, response schema, API call and validation.                                   |
-| `calendar_gen.py`   | Season calendar and weather alert detection.                                        |
-| `store.py`          | `FarmLogStore`: JSON save/load (CSV export to do).                                  |
-| `validators.py`     | Regex helpers for coordinates, names, dates and numeric extraction.                 |
-| `exceptions.py`     | Custom exceptions shared by all modules.                                            |
-| `tests/`            | Unit tests (`python -m unittest discover -s tests`).                                |
+| File                | Purpose                                                                 |
+| ------------------- | ----------------------------------------------------------------------- |
+| `app.py`            | Tkinter UI: 5 tabs and a status bar. No business logic here.            |
+| `main.py`           | Console smoke test that wires every module together.                    |
+| `models.py`         | Shared data shapes (`Crop`, `FarmPlot`, `DailyForecast`, `Advice`...).  |
+| `crops.py`          | Supported crops and their profiles.                                     |
+| `weather_client.py` | `WeatherClient`: geocoding and daily weather forecasts from Open-Meteo. |
+| `advisor.py`        | `PlantingAdvisor`: Gemini advice with a rule-based fallback.            |
+| `gemini_advisor.py` | Prompt, response schema, API call and validation.                       |
+| `calendar_gen.py`   | Season calendar and weather alert detection.                            |
+| `store.py`          | `FarmLogStore`: JSON save/load (CSV export to do).                      |
+| `validators.py`     | Regex helpers for coordinates, names, dates and numeric extraction.     |
+| `exceptions.py`     | Custom exceptions shared by all modules.                                |
+| `tests/`            | Unit tests (`python -m unittest discover -s tests`).                    |
 
 ### Python concepts and where they live
 
@@ -75,15 +75,6 @@ pip install requests
 
 Tkinter ships with Python on Windows and macOS. On Ubuntu/Debian: `sudo apt install python3-tk`.
 
-**Gemini API key (optional while developing):** set it as an environment variable. **Never commit it.**
-
-```bash
-export GEMINI_API_KEY="your-key"       # Windows (PowerShell): $env:GEMINI_API_KEY="your-key"
-export GEMINI_MODEL="model-name"       # optional; check Google's current model names
-```
-
-Without a key the app uses the rule-based advisor.
-
 **Run it:**
 
 ```bash
@@ -91,8 +82,6 @@ python app.py        # the Tkinter app
 python main.py       # console smoke test
 python -m unittest discover -s tests   # run tests
 ```
-
-`WeatherClient` returns mock forecast data until the Open-Meteo calls are implemented.
 
 ---
 

@@ -73,3 +73,12 @@ class FarmPlot:
 
     def to_dict(self):
         return asdict(self)
+
+    @classmethod
+    def from_dict(cls, d):
+        return cls(
+            plot_id=d["plot_id"], name=d["name"], location=Location(**d["location"]),
+            crop_name=d["crop_name"], planting_date=d.get("planting_date"),
+            activities=[Activity(**a) for a in d.get("activities", [])],
+            calendar=[CalendarEvent(**c) for c in d.get("calendar", [])],
+        )
