@@ -1,6 +1,8 @@
-"""Crop lookup. Owner: Storage/models. Replace DEFAULT_CROPS with crops.json loading."""
+"""Crop lookup. Owner: Storage/models.."""
 from models import Crop
 from exceptions import UnsupportedCropError
+
+#TODO Replace DEFAULT_CROPS with crops.json loading
 
 DEFAULT_CROPS = {
     "maize":   Crop("maize", 15, 35, 25, 110, [14, 35], ["fall armyworm", "stem borer"]),

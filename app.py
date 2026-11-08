@@ -13,6 +13,7 @@ import queue
 import threading
 import uuid
 import tkinter as tk
+from dotenv import load_dotenv
 from datetime import date
 from tkinter import ttk, messagebox, filedialog
 
@@ -26,6 +27,7 @@ from validators import COORD_RE, parse_coordinates, validate_date, validate_loca
 from models import Location
 from weather_client import WeatherClient
 
+load_dotenv()  # load GEMINI_API_KEY from .env if present
 ACTIVITY_KINDS = ["planting", "weeding", "fertilizing", "irrigation", "harvest", "other"]
 PAD = {"padx": 8, "pady": 4}
 
@@ -109,7 +111,7 @@ class AdviceTab(ttk.Frame):
             crop = get_crop(crop_name)
             loc = self.app.resolve_location(loc_text)
             forecast = self.app.weather.get_forecast(loc.lat, loc.lon)
-            return crop, loc, self.app.advisor.advise(crop, forecast), detect_alerts(crop, forecast)
+            return crop, loc, self.app.advisor.advise(crop, forecast, loc), detect_alerts(crop, forecast)
 
         self.app.run_async(work, self._show, self._done, "Fetching forecast and advice...")
 
