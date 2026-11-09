@@ -1,33 +1,38 @@
-"""Shared custom exceptions. Owner: AI/advisor lead. Everyone raises/catches these."""
+"""
+Application-specific exceptions for Smart Farming.
+
+All expected application errors inherit from FarmAdvisorError, allowing
+advisor.py to catch known failures and safely fall back to rule-based advice.
+"""
 
 
 class FarmAdvisorError(Exception):
-    """Base class for all app errors. The UI catches this and shows a message."""
+    """Base class for expected Smart Farming application errors."""
 
 
 class InvalidInputError(FarmAdvisorError):
-    """Bad user input (date, coordinates, plot name...)."""
+    """Raised when required input is missing or invalid."""
 
 
 class InvalidLocationError(FarmAdvisorError):
-    """Location could not be parsed or geocoded."""
+    """Raised when a location cannot be found or used."""
 
 
 class UnsupportedCropError(FarmAdvisorError):
-    """Crop is not in crops.json."""
+    """Raised when the requested crop is not supported."""
 
 
 class ForecastUnavailableError(FarmAdvisorError):
-    """Forecast data is missing or incomplete."""
+    """Raised when weather forecast data is unavailable or incomplete."""
 
 
 class APIRequestError(FarmAdvisorError):
-    """Network failure, timeout, or non-200 response (Open-Meteo or Gemini)."""
+    """Raised when an external API request fails."""
 
 
 class StorageError(FarmAdvisorError):
-    """Save/load problem (missing, corrupt, or unwritable file)."""
+    """Raised when reading or writing application data fails."""
 
 
 class AdviceFormatError(FarmAdvisorError):
-    """Gemini returned something that fails schema or sanity checks."""
+    """Raised when AI-generated advice is missing or incorrectly formatted."""
