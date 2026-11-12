@@ -2,7 +2,7 @@
 
 A python app that helps farmers decide **when and how to plant**. The user enters a location and a crop (maize, cassava, tomato or rice). The app fetches the local forecast, uses AI to advise on planting time, irrigation and pest/disease risk, and helps the farmer track each plot through the season.
 
-**Tech stack:** Python, Tkinter, Requests, JSON, date/time handling, Gemini API, Open-Meteo Forecast API.
+**Tech stack:** Python, Streamlit, Requests, JSON, date/time handling, Gemini API, Open-Meteo Forecast API.
 
 ---
 
@@ -19,7 +19,7 @@ A python app that helps farmers decide **when and how to plant**. The user enter
 ### How a request flows through the code
 
 ```
-Tkinter UI (app.py)
+Streamlit UI (app.py)
    │  user enters location + crop
    ▼
 validators.py ──► checks coordinates / names / dates (regex)
@@ -41,7 +41,7 @@ Errors anywhere raise a custom exception from `exceptions.py`. The UI catches th
 
 | File                | Purpose                                                                 |
 | ------------------- | ----------------------------------------------------------------------- |
-| `app.py`            | Tkinter UI: 5 tabs and a status bar. No business logic here.            |
+| `app.py`            | Streamlit UI: here.                                                     |
 | `main.py`           | Console smoke test that wires every module together.                    |
 | `models.py`         | Shared data shapes (`Crop`, `FarmPlot`, `DailyForecast`, `Advice`...).  |
 | `crops.py`          | Supported crops and their profiles.                                     |
@@ -78,7 +78,7 @@ Tkinter ships with Python on Windows and macOS. On Ubuntu/Debian: `sudo apt inst
 **Run it:**
 
 ```bash
-python app.py        # the Tkinter app
+python app.py        # the Streamlit app
 python main.py       # console smoke test
 python -m unittest discover -s tests   # run tests
 ```
@@ -153,6 +153,5 @@ To avoid merge conflicts, **nobody works directly on `main`**. Every task gets i
 - [ ] Real Open-Meteo geocoding and forecast calls (with timeouts and error handling)
 - [ ] Live test of the Gemini integration with a real key
 - [ ] CSV export of activities
-- [ ] Per-crop tuning of alert thresholds
-- [ ] First real launch and layout polish of the Tkinter UI
+- [ ] First real launch and layout polish of the Streamlit UI
 - [ ] Unit tests for validators and calendar generator
