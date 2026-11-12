@@ -70,7 +70,7 @@ git clone <repo-url>
 cd farm_advisor
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install requests
+python -m pip install streamlit requests
 ```
 
 Tkinter ships with Python on Windows and macOS. On Ubuntu/Debian: `sudo apt install python3-tk`.
@@ -78,9 +78,9 @@ Tkinter ships with Python on Windows and macOS. On Ubuntu/Debian: `sudo apt inst
 **Run it:**
 
 ```bash
-python app.py        # the Streamlit app
-python main.py       # console smoke test
-python -m unittest discover -s tests   # run tests
+python -m streamlit run app.py       # the Streamlit app
+python main.py                       # console smoke test
+python -m unittest discover -s tests  # run tests
 ```
 
 ---
